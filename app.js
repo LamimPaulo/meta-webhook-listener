@@ -45,12 +45,11 @@ app.post("/webhook", (req, res) => {
       var jackrabbit = require('jackrabbit');
       var url = process.env.CLOUDAMQP_URL;
       var rabbit = jackrabbit(url);
-      
-      rabbit
-        .default()
-        .publish({ msg: msg_body }, { key: 'wp-hook' })
-        .on('drain', rabbit.close);
+      var exchange = rabbit.default();
 
+      var queue = exchange.queue({ name: 'wp-hook', durable: true });
+
+      exchange.publish({ msg: msg_body }, { key: 'wp-hook' });
     }
     res.sendStatus(200);
   } else {
