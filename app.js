@@ -27,20 +27,21 @@ app.post("/webhook", (req, res) => {
         req.body.entry[0].changes[0].value.metadata.phone_number_id;
       let from = req.body.entry[0].changes[0].value.messages[0].from;
       let msg_body = req.body.entry[0].changes[0].value.messages[0].text.body;
-      axios({
-        method: "POST",
-        url:
-          "https://graph.facebook.com/v12.0/" +
-          phone_number_id +
-          "/messages?access_token=" +
-          token,
-        data: {
-          messaging_product: "whatsapp",
-          to: from,
-          text: { body: "Ack: " + msg_body },
-        },
-        headers: { "Content-Type": "application/json" },
-      });
+      
+      // axios({
+      //   method: "POST",
+      //   url:
+      //     "https://graph.facebook.com/v12.0/" +
+      //     phone_number_id +
+      //     "/messages?access_token=" +
+      //     token,
+      //   data: {
+      //     messaging_product: "whatsapp",
+      //     to: from,
+      //     text: { body: "Ack: " + msg_body },
+      //   },
+      //   headers: { "Content-Type": "application/json" },
+      // });
 
       var jackrabbit = require('jackrabbit');
       var url = process.env.CLOUDAMQP_URL;
@@ -49,7 +50,7 @@ app.post("/webhook", (req, res) => {
 
       var queue = exchange.queue({ name: 'wp-hook', durable: true });
 
-      exchange.publish({ msg: msg_body }, { key: 'wp-hook' });
+      exchange.publish({ msg: req.body }, { key: 'wp-hook' });
     }
     res.sendStatus(200);
   } else {
