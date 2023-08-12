@@ -44,8 +44,8 @@ app.post("/webhook", (req, res) => {
 
       var jackrabbit = require('jackrabbit');
       var url = process.env.CLOUDAMQP_URL;
-      var rabbit = jackrabbit(url).
-
+      var rabbit = jackrabbit(url);
+      
       rabbit
         .default()
         .publish({ msg: msg_body }, { key: 'wp-hook' })
