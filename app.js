@@ -23,11 +23,12 @@ app.post("/webhook", (req, res) => {
       req.body.entry[0].changes[0].value.messages &&
       req.body.entry[0].changes[0].value.messages[0]
     ) {
-      let phone_number_id =
-        req.body.entry[0].changes[0].value.metadata.phone_number_id;
-      let from = req.body.entry[0].changes[0].value.messages[0].from;
-      let msg_body = req.body.entry[0].changes[0].value.messages[0].text.body;
       
+      // let phone_number_id =
+      //   req.body.entry[0].changes[0].value.metadata.phone_number_id;
+      // let from = req.body.entry[0].changes[0].value.messages[0].from;
+      // let msg_body = req.body.entry[0].changes[0].value.messages[0].text.body;
+
       // axios({
       //   method: "POST",
       //   url:
